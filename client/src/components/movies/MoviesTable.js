@@ -7,6 +7,19 @@ const MoviesTable = () => {
   const [loaded, setloaded] = useState(false);
   const [errorMessage, seterrorMessage] = useState(null)
   const id = 0;
+
+  const confirmDelete = async (id) => {
+    id = id.toString();
+    const payload = {
+      id: id
+    }
+    const result = await axios.post(
+      `http://localhost:4000/admin/movie/delete`,
+      JSON.stringify(payload)
+    )
+    
+  }
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -21,7 +34,7 @@ const MoviesTable = () => {
 
     fetchMovies();
   }, [id]);
-
+  
   return (
     <>
       {!loaded ? (
@@ -72,7 +85,7 @@ const MoviesTable = () => {
                         <span className="dropdown-item"><Link to={`/admin/movies/${movie.id}/update`}>Edit</Link></span>
                       </li>
                       <li>
-                        <span className="dropdown-item">Delete</span>
+                        <span className="dropdown-item" style={{cursor: 'pointer'}} onClick={() => confirmDelete(movie.id)}>Delete</span>
                       </li>
                     </ul>
                     </div>
