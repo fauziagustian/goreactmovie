@@ -9,13 +9,14 @@ const MoviesTable = () => {
   const id = 0;
 
   const confirmDelete = async (id) => {
-    id = id.toString();
+    
     const payload = {
       id: id
     }
     const result = await axios.post(
       `http://localhost:4000/admin/movie/delete`,
-      JSON.stringify(payload)
+      JSON.stringify(payload),
+      
     )
     
   }
