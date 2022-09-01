@@ -178,3 +178,32 @@ func (app *application) putMovie(rw http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func (app *application) deleteMovie(rw http.ResponseWriter, r *http.Request) {
+	var payload MoviePayLoad
+	err := json.NewDecoder(r.Body).Decode(&payload)
+	if err != nil {
+		log.Println(err)
+		app.errorJSON(rw, err)
+		return
+	}
+
+	id, _ := strconv.Atoi(payload.ID)
+	err = app.models.DB.DeleteMovie(id)
+	if err != nil {
+		log.Println(err)
+		app.errorJSON(rw, err)
+		return
+	}
+	//delete movie query
+	ok := jsonRes{
+		OK: true,
+	}
+
+	err = app.writeJSON(rw, http.StatusOK, ok, "response")
+	if err != nil {
+		log.Println(err)
+		app.errorJSON(rw, err)
+		return
+	}
+}
