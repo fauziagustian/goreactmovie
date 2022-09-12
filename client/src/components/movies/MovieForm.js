@@ -24,6 +24,7 @@ function MovieForm() {
         result.data.movie.id = result.data.movie.id.toString();
         result.data.movie.runtime = result.data.movie.runtime.toString();
         result.data.movie.release_date = new Date(result.data.movie.release_date).toISOString().split('T')[0];
+        result.data.movie.rating = result.data.movie.rating.toString();
         console.log(result.data.movie.release_date)
         fields.forEach((field) => setValue(field, result.data.movie[field]))
       }catch(err) {
@@ -51,7 +52,7 @@ function MovieForm() {
         );
         console.log(result.data);
       }
-      
+      window.location = "http://localhost:3000/Admin";
     }
   return (
     <>
